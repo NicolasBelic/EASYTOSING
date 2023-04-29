@@ -1,0 +1,59 @@
+-- Cria o banco de dados e o seleciona
+CREATE DATABASE easy_to_sing;
+USE easy_to_sing;
+
+-- Cria a tabela de artistas
+CREATE TABLE artistas (
+  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  sexo VARCHAR(20),
+  telefone VARCHAR(13) NOT NULL,
+  cpf CHAR(11),
+  cep CHAR(8),
+  email VARCHAR(100) NOT NULL UNIQUE,
+  senha VARCHAR(100) NOT NULL,
+  logradouro VARCHAR(500),
+  bairro VARCHAR(100),
+  localidade VARCHAR(100),
+  uf CHAR(2),
+  tipo VARCHAR(50),
+  descricao VARCHAR(155),
+  INDEX idx_artista_nome (nome),
+  INDEX idx_artista_email (email)
+);
+
+-- Cria a tabela de empreendimentos
+CREATE TABLE empreendimentos (
+  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  telefone VARCHAR(13) NOT NULL,
+  cnpj CHAR(14),
+  cep CHAR(8),
+  email VARCHAR(100) NOT NULL UNIQUE,
+  senha VARCHAR(100) NOT NULL,
+  logradouro VARCHAR(500),
+  bairro VARCHAR(100),
+  localidade VARCHAR(100),
+  uf CHAR(2),
+  tipo VARCHAR(50),
+  INDEX idx_empreendimento_nome (nome),
+  INDEX idx_empreendimento_email (email)
+);
+
+-- Cria a tabela de imagens
+CREATE TABLE imagens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    imagem LONGBLOB NOT NULL
+);
+
+-- Cria a tabela de descrições
+CREATE TABLE descricoes (
+  id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  descricao VARCHAR(155),
+  artista_id INT,
+  FOREIGN KEY (artista_id) REFERENCES artistas(id),
+  INDEX idx_descricao_artista_id (artista_id)
+);
+
+alter table imagens add column artista varchar(100) not null;
